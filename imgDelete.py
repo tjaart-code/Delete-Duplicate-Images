@@ -51,5 +51,5 @@ def delete_duplicates(directory):
 
 # Example usage
 if __name__ == "__main__":
-    directory = '/home/tjaart/Desktop/alfa'  # Replace with your actual folder path
+    directory = '/home/user/Documents/myFolder/'  # Replace with your actual folder path
     delete_duplicates(directory)
