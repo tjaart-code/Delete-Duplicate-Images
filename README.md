@@ -1,2 +1,2 @@
-Change the directory path to your folder path
-directory = '/home/user/Documents/myFolder/'  # Replace with your actual folder path
+Change the directory path to your folder path<br>
+`directory = '/home/user/Documents/myFolder/'  # Replace with your actual folder path`
