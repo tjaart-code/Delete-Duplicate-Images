@@ -51,5 +51,6 @@ def delete_duplicates(directory):
 
 # Example usage
 if __name__ == "__main__":
-    directory = '/home/user/Documents/myFolder/'  # Replace with your actual folder path
+    # Prompt user for directory path
+    directory = input("Please enter the directory path: ")
     delete_duplicates(directory)
