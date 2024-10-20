@@ -7,6 +7,5 @@
 4. **File Extensions**: The script checks for common image file extensions like .png, .jpg, .jpeg, .gif, bmp, tiff, webp. (You can add more extension types)
 
 ### How To Run:
-1. Change the directory path to your folder path
-   - `directory = '/home/user/Documents/Folder/'  # Replace with your actual folder path`
-2. In your terminal run: <code>python3 imgDelete.py</code>
+1. In your terminal run: ```python3 imgDelete.py```
+2. You will be asked to input your directory full path e.g. ```/home/user/Pictures/my-folder```
