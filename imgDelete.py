@@ -58,6 +58,10 @@ def delete_duplicates(directory):
                     hashes[file_hash] = file_path
 
     # Show duplicates found and ask for confirmation
+    print(f"\n{'='*60}")
+    print(f"Total duplicates found: {len(duplicates_found)}")
+    print(f"{'='*60}")
+    
     if duplicates_found:
         print(f"\nFound {len(duplicates_found)} duplicate image(s):")
         for i, dup_file in enumerate(duplicates_found, 1):
@@ -79,7 +83,9 @@ def delete_duplicates(directory):
             except Exception as e:
                 print(f"Error deleting {file_path}: {e}")
         
-        print(f"\nSuccessfully deleted {deleted_count} duplicate image(s).")
+        print(f"\n{'='*60}")
+        print(f"Successfully deleted {deleted_count} duplicate image(s).")
+        print(f"{'='*60}")
     else:
         print("No duplicate images found.")
 
