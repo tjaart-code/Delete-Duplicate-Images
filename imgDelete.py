@@ -19,11 +19,11 @@ import hashlib
 # Function to compute hash of a file
 def get_file_hash(file_path, chunk_size=4096):
     try:
-        hash_md5 = hashlib.md5()
+        hash_sha256 = hashlib.sha256()
         with open(file_path, "rb") as f:
             for chunk in iter(lambda: f.read(chunk_size), b""):
-                hash_md5.update(chunk)
-        return hash_md5.hexdigest()
+                hash_sha256.update(chunk)
+        return hash_sha256.hexdigest()
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
         return None
@@ -35,7 +35,7 @@ def delete_duplicates(directory):
         return
     
     hashes = {}
-    duplicate_count = 0
+    duplicates_found = []
 
     # Walk through the directory and its subdirectories
     for root, dirs, files in os.walk(directory):
@@ -53,19 +53,43 @@ def delete_duplicates(directory):
                 # If the hash exists, it's a duplicate
                 if file_hash in hashes:
                     print(f"Duplicate found: {file_path}")
-                    try:
-                        os.remove(file_path)  # Uncomment this to delete the file
-                        print(f"Deleted: {file_path}")
-                        duplicate_count += 1
-                    except Exception as e:
-                        print(f"Error deleting {file_path}: {e}")
+                    duplicates_found.append(file_path)
                 else:
                     hashes[file_hash] = file_path
 
-    print(f"Deleted {duplicate_count} duplicate images.")
+    # Show duplicates found and ask for confirmation
+    if duplicates_found:
+        print(f"\nFound {len(duplicates_found)} duplicate image(s):")
+        for i, dup_file in enumerate(duplicates_found, 1):
+            print(f"  {i}. {dup_file}")
+        
+        # Ask for user confirmation
+        confirmation = input("\nAre you sure you want to delete these duplicates? (yes/no): ").strip().lower()
+        if confirmation != "yes":
+            print("Deletion cancelled.")
+            return
+        
+        # Delete the duplicates
+        deleted_count = 0
+        for file_path in duplicates_found:
+            try:
+                os.remove(file_path)
+                print(f"Deleted: {file_path}")
+                deleted_count += 1
+            except Exception as e:
+                print(f"Error deleting {file_path}: {e}")
+        
+        print(f"\nSuccessfully deleted {deleted_count} duplicate image(s).")
+    else:
+        print("No duplicate images found.")
 
 # Example usage
 if __name__ == "__main__":
     # Prompt user for directory path
-    directory = input("Please enter the directory path: ")
-    delete_duplicates(directory)
+    while True:
+        directory = input("Please enter the directory path: ").strip()
+        if os.path.isdir(directory):
+            delete_duplicates(directory)
+            break
+        else:
+            print(f"Error: '{directory}' is not a valid directory. Please try again.")
